@@ -527,9 +527,26 @@ function distinct(arr) {
  *   }
  */
 function group(/* array, keySelector, valueSelector */) {
+  // return array.reduce((rpevValue, item) => {
+  //   console.log(rpevValue, item);
+  //   rpevValue.get(keySelector(item))
+  //   // ? rpevValue.get(valueSelector(item))
+  //   // : rpevValue.get(valueSelector(item)),
+  //   // valueSelector(item);
+  // }, new Map());
   throw new Error('Not implemented');
 }
-
+// console.log(group([
+//   { country: 'Belarus', city: 'Brest' },
+//   { country: 'Russia', city: 'Omsk' },
+//   { country: 'Russia', city: 'Samara' },
+//   { country: 'Belarus', city: 'Grodno' },
+//   { country: 'Belarus', city: 'Minsk' },
+//   { country: 'Poland', city: 'Lodz' }
+// ],
+//   item => item.country,
+//   item => item.city
+// ));
 
 /**
  * Projects each element of the specified array to a sequence
