@@ -316,8 +316,12 @@ function isCreditCardNumber(ccn) {
  *   10000 ( 1+0+0+0+0 = 1 ) => 1
  *   165536 (1+6+5+5+3+6 = 26,  2+6 = 8) => 8
  */
-function getDigitalRoot(/* num */) {
-  throw new Error('Not implemented');
+function getDigitalRoot(num) {
+  let sum = String(num).split('').reduce((prVal, item) => (prVal + Number(item)), 0);
+  while (sum > 10) {
+    sum = String(sum).split('').reduce((prVal, item) => (prVal + Number(item)), 0);
+  }
+  return sum;
 }
 
 
@@ -342,10 +346,26 @@ function getDigitalRoot(/* num */) {
  *   '{)' = false
  *   '{[(<{[]}>)]}' = true
  */
-function isBracketsBalanced(/* str */) {
-  throw new Error('Not implemented');
+function isBracketsBalanced(str) {
+  const openingBrackets = ['[', '(', '{', '<'];
+  const closingBrackets = [']', ')', '}', '>'];
+  const arr = [];
+  let index = null;
+  for (let i = 0; i < str.length; i += 1) {
+    index = openingBrackets.indexOf(str[i]);
+    if (index !== -1) {
+      arr.push(closingBrackets[index]);
+    } else {
+      index = closingBrackets.indexOf(str[i]);
+      if (index !== -1 && arr[arr.length - 1] === str[i]) {
+        arr.pop();
+      } else {
+        return false;
+      }
+    }
+  }
+  return arr.length === 0;
 }
-
 
 /**
  * Returns the string with n-ary (binary, ternary, etc, where n <= 10)
@@ -384,10 +404,19 @@ function toNaryString(/* num, n */) {
  *   ['/web/assets/style.css', '/.bin/mocha',  '/read.me'] => '/'
  *   ['/web/favicon.ico', '/web-scripts/dump', '/verbalizer/logs'] => '/'
  */
-function getCommonDirectoryPath(/* pathes */) {
-  throw new Error('Not implemented');
+function getCommonDirectoryPath(pathes) {
+  let commonPath = '';
+  const firstPath = pathes[0];
+  for (let i = 0; i < firstPath.length; i += 1) {
+    for (let j = 1; j < pathes.length; j += 1) {
+      if (firstPath[i] !== pathes[j][i]) {
+        return commonPath.slice(0, commonPath.length - commonPath.split('').reverse().indexOf('/'));
+      }
+    }
+    commonPath += firstPath[i];
+  }
+  return commonPath;
 }
-
 
 /**
  * Returns the product of two specified matrixes.
@@ -410,7 +439,6 @@ function getCommonDirectoryPath(/* pathes */) {
 function getMatrixProduct(/* m1, m2 */) {
   throw new Error('Not implemented');
 }
-
 
 /**
  * Returns the evaluation of the specified tic-tac-toe position.
